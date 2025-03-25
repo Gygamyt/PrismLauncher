@@ -87,23 +87,23 @@ void LaunchController::decideAccount()
 
     // Find an account to use.
     auto accounts = APPLICATION->accounts();
-//    if (accounts->count() <= 0 || !accounts->anyAccountIsValid()) {
-//        // Tell the user they need to log in at least one account in order to play.
-//        auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"),
-//                                                  tr("In order to play Minecraft, you must have at least one Microsoft "
-//                                                     "account which owns Minecraft logged in. "
-//                                                     "Would you like to open the account manager to add an account now?"),
-//                                                  QMessageBox::Information, QMessageBox::Yes | QMessageBox::No)
-//                         ->exec();
-//
-//        if (reply == QMessageBox::Yes) {
-//            // Open the account manager.
-//            APPLICATION->ShowGlobalSettings(m_parentWidget, "accounts");
-//        } else if (reply == QMessageBox::No) {
-//            // Do not open "profile select" dialog.
-//            return;
-//        }
-//    }
+    //    if (accounts->count() <= 0 || !accounts->anyAccountIsValid()) {
+    //        // Tell the user they need to log in at least one account in order to play.
+    //        auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"),
+    //                                                  tr("In order to play Minecraft, you must have at least one Microsoft "
+    //                                                     "account which owns Minecraft logged in. "
+    //                                                     "Would you like to open the account manager to add an account now?"),
+    //                                                  QMessageBox::Information, QMessageBox::Yes | QMessageBox::No)
+    //                         ->exec();
+    //
+    //        if (reply == QMessageBox::Yes) {
+    //            // Open the account manager.
+    //            APPLICATION->ShowGlobalSettings(m_parentWidget, "accounts");
+    //        } else if (reply == QMessageBox::No) {
+    //            // Do not open "profile select" dialog.
+    //            return;
+    //        }
+    //    }
 
     // Select the account to use. If the instance has a specific account set, that will be used. Otherwise, the default account will be used
     auto instanceAccountId = m_instance->settings()->get("InstanceAccountId").toString();
@@ -234,19 +234,22 @@ void LaunchController::login()
             }
         }
 
-        if (accountToCheck == nullptr) {
-            if (!m_session->demo)
-                m_session->demo = askPlayDemo();
-
-            if (m_session->demo)
-                launchInstance();
-            else
-                emitFailed(tr("Launch cancelled - account does not own Minecraft."));
-
-            return;
-        }
+        //        if (accountToCheck == nullptr) {
+        //            if (!m_session->demo)
+        //                m_session->demo = askPlayDemo();
+        //
+        //            if (m_session->demo)
+        //                launchInstance();
+        //            else
+        //                emitFailed(tr("Launch cancelled - account does not own Minecraft."));
+        //
+        //            return;
+        //        }
 
         switch (accountToCheck->accountState()) {
+            default: {
+                m_session->wants_online = false;
+            }
             case AccountState::Offline: {
                 m_session->wants_online = false;
             }
