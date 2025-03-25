@@ -249,9 +249,13 @@ void LaunchController::login()
         switch (accountToCheck->accountState()) {
             default: {
                 m_session->wants_online = false;
+                launchInstance();
+                return;
             }
             case AccountState::Offline: {
                 m_session->wants_online = false;
+                launchInstance();
+                return;
             }
             /* fallthrough */
             case AccountState::Online: {
